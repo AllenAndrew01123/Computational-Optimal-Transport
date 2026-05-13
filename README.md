@@ -9,24 +9,23 @@ This project studies computational optimal transport using several solver paradi
 
 The experiments use two random 2D Gaussian point clouds:
 
-- Source samples: \(X_i \sim \mathcal{N}(\mu_1, \Sigma_1)\)
-- Target samples: \(Y_j \sim \mathcal{N}(\mu_2, \Sigma_2)\)
-- Uniform weights: \(a = b = \frac{1}{n}\mathbf{1}\)
-- Cost matrix: \(C_{ij} = \|X_i - Y_j\|_2^2\)
+- Source samples: X_i sampled from N(mu_1, Sigma_1)
+- Target samples: Y_j sampled from N(mu_2, Sigma_2)
+- Uniform weights: a = b = (1/n) * 1
+- Cost matrix: C_ij = ||X_i - Y_j||_2^2
 
 The project compares:
 
 - Linear programming OT
 - Quadratic regularized OT
 - Entropic regularized OT / Sinkhorn
-- Discrete OT convergence to closed-form Gaussian \(W_2^2\)
+- Discrete OT convergence to closed-form Gaussian W2^2
 
 ## Team
 
 Name: Allen Andrew  
-UNI: TODO
-
-Add teammate name and UNI here if applicable.
+UNI: aa5738  
+Submission type: Solo
 
 ## Project structure
 
@@ -95,7 +94,7 @@ This includes:
 
 The selected Gaussian parameters satisfy the assignment requirements:
 
-- points are in \(\mathbb{R}^2\)
+- points are in R^2
 - means are distinct
 - covariance matrices are non-diagonal
 - weights are uniform
@@ -106,8 +105,8 @@ The selected Gaussian parameters satisfy the assignment requirements:
 
 Runs:
 
-- small correctness checks for \(n=3,4\)
-- LP solve times for \(n = 50,100,200,500\)
+- small correctness checks for n = 3 and n = 4
+- LP solve times for n = 50, 100, 200, 500
 - simplex, IPM, and manual PDHG comparison
 - transport cost and marginal violation table
 - log-log timing plot
@@ -127,13 +126,13 @@ outputs/figures/part1_lp_timing_loglog.png
 
 Solves:
 
-\[
-\min_{P \in U(a,b)} \langle C,P\rangle + \frac{\lambda}{2}\|P\|_F^2
-\]
+```txt
+min over P in U(a,b): <C,P> + (lambda / 2) * ||P||_F^2
+```
 
 Runs:
 
-- OSQP / ADMM vs CLARABEL / IPM comparison for \(n=200\)
+- OSQP / ADMM vs CLARABEL / IPM comparison for n = 200
 - quadratic regularization path
 - ADMM rho sensitivity experiment
 
@@ -154,17 +153,17 @@ outputs/figures/part2_quadratic_regularization_path.png
 
 Solves:
 
-\[
-\min_{P \in U(a,b)} \langle C,P\rangle + \lambda \sum_{ij} P_{ij}\log P_{ij}
-\]
+```txt
+min over P in U(a,b): <C,P> + lambda * sum_ij P_ij log(P_ij)
+```
 
 Runs:
 
 - POT Sinkhorn vs manual Sinkhorn comparison
-- entropic regularization path for 15 values of \(\lambda\)
-- marginal violation vs iteration for \(\lambda = 1, 0.1, 0.01\)
+- entropic regularization path for 15 values of lambda
+- marginal violation vs iteration for lambda = 1, 0.1, 0.01
 
-The regularization path uses POT's log-domain Sinkhorn for numerical stability at small \(\lambda\).
+The regularization path uses POT's log-domain Sinkhorn for numerical stability at small lambda.
 
 ```bash
 python -m src.part3_sinkhorn
@@ -185,9 +184,9 @@ outputs/figures/part3_sinkhorn_convergence.png
 Creates side-by-side visualizations of:
 
 - LP coupling
-- quadratic coupling with \(\lambda = 0.1\)
-- Sinkhorn coupling with \(\lambda = 1\)
-- Sinkhorn coupling with \(\lambda = 0.01\)
+- quadratic coupling with lambda = 0.1
+- Sinkhorn coupling with lambda = 1
+- Sinkhorn coupling with lambda = 0.01
 
 ```bash
 python -m src.visualization
@@ -203,28 +202,24 @@ outputs/figures/coupling_visualization.png
 
 Computes the closed-form squared Wasserstein-2 distance between two Gaussians:
 
-\[
-W_2^2(\mu_0,\nu_0)
+```txt
+W2^2(mu_0, nu_0)
 =
-\|\mu_1-\mu_2\|^2
+||mu_1 - mu_2||^2
 +
-\operatorname{tr}
-\left(
-\Sigma_1+\Sigma_2
--
-2(\Sigma_1^{1/2}\Sigma_2\Sigma_1^{1/2})^{1/2}
-\right)
-\]
+tr(Sigma_1 + Sigma_2
+   - 2 * (Sigma_1^(1/2) Sigma_2 Sigma_1^(1/2))^(1/2))
+```
 
 Then compares it with discrete OT costs from sampled point clouds.
 
 Runs:
 
-- closed-form Gaussian \(W_2^2\)
-- discrete OT for \(n = 50,100,200,500\)
-- 10 random seeds per \(n\)
-- mean ± one standard deviation plot
-- Gaussian contour ellipse and OT arrow visualization for \(n=200\)
+- closed-form Gaussian W2^2
+- discrete OT for n = 50, 100, 200, 500
+- 10 random seeds per n
+- mean +/- one standard deviation plot
+- Gaussian contour ellipse and OT arrow visualization for n = 200
 
 ```bash
 python -m src.part4_gaussian
@@ -256,11 +251,11 @@ outputs/figures/part4_gaussian_arrows.png
 
 - POT Sinkhorn
 - manual NumPy Sinkhorn
-- POT log-domain Sinkhorn for small \(\lambda\)
+- POT log-domain Sinkhorn for small lambda
 
 ### Gaussian OT
 
-- closed-form Gaussian \(W_2^2\)
+- closed-form Gaussian W2^2
 - matrix square root computed with `scipy.linalg.sqrtm`
 
 ## Output files produced
@@ -295,15 +290,15 @@ outputs/figures/part4_gaussian_arrows.png
 
 The manual PDHG implementation is approximate. It reaches small marginal violation but does not solve the LP as exactly as simplex or IPM.
 
-Naive Sinkhorn is extremely fast for moderate \(\lambda\), but it becomes unstable for small \(\lambda\) because the Gibbs kernel
+Naive Sinkhorn is extremely fast for moderate lambda, but it becomes unstable for small lambda because the Gibbs kernel
 
-\[
-K_{ij} = \exp(-C_{ij}/\lambda)
-\]
+```txt
+K_ij = exp(-C_ij / lambda)
+```
 
-can underflow. For the small-\(\lambda\) regularization path, log-domain Sinkhorn is used.
+can underflow. For the small-lambda regularization path, log-domain Sinkhorn is used.
 
-The empirical Gaussian OT experiment has sampling variability because both source and target distributions are represented by finite random samples. The mean discrete cost is therefore not necessarily monotone in \(n\), but the results stay near the closed-form Gaussian \(W_2^2\).
+The empirical Gaussian OT experiment has sampling variability because both source and target distributions are represented by finite random samples. The mean discrete cost is therefore not necessarily monotone in n, but the results stay near the closed-form Gaussian W2^2.
 
 ## LLM usage
 
