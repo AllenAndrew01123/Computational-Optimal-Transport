@@ -1,0 +1,7 @@
+numpy
+scipy
+matplotlib
+pandas
+cvxpy
+osqp
+pot

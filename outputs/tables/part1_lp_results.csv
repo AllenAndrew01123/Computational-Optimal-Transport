@@ -1,0 +1,13 @@
+n,method,time_seconds,transport_cost,marginal_violation,solver_status
+50,simplex,0.009277500095777214,5.4394305582143945,0.0,Optimization terminated successfully. (HiGHS Status 7: Optimal)
+50,ipm,0.009222291992045939,5.4394305582143945,0.0,Optimization terminated successfully. (HiGHS Status 7: Optimal)
+50,pdhg,0.006664833053946495,5.43946140632852,9.366085383655243e-08,PDHG finished after 701 iterations
+100,simplex,0.05480008292943239,5.481528172002795,0.0,Optimization terminated successfully. (HiGHS Status 7: Optimal)
+100,ipm,0.04094083304516971,5.481528172002795,0.0,Optimization terminated successfully. (HiGHS Status 7: Optimal)
+100,pdhg,0.026259333943016827,5.4815319438276315,4.140944914535205e-07,PDHG finished after 1001 iterations
+200,simplex,0.4863418750464916,5.902671708288557,0.0,Optimization terminated successfully. (HiGHS Status 7: Optimal)
+200,ipm,0.21518208307679743,5.902671708288557,0.0,Optimization terminated successfully. (HiGHS Status 7: Optimal)
+200,pdhg,0.5378775000572205,5.902671327682665,5.215553465437797e-07,PDHG finished after 7201 iterations
+500,simplex,11.043490375042893,5.670051409147712,0.0,Optimization terminated successfully. (HiGHS Status 7: Optimal)
+500,ipm,2.1562689159763977,5.670051409147712,0.0,Optimization terminated successfully. (HiGHS Status 7: Optimal)
+500,pdhg,2.3357209160458297,5.670051447874098,2.4845885282379424e-07,PDHG finished after 5601 iterations

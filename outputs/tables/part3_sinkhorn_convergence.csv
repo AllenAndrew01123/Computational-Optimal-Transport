@@ -1,0 +1,4 @@
+n,lambda,method,iterations,final_marginal_violation,time_seconds,status
+200,1.0,manual_sinkhorn,51,3.2354358775465997e-11,0.00062429194804281,finished after 51 iterations
+200,0.1,manual_sinkhorn,451,7.798678508530443e-10,0.004382624989375472,finished after 451 iterations
+200,0.01,manual_sinkhorn,10000,0.2789928761822775,0.09115812508389354,finished after 10000 iterations
